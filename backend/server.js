@@ -1,7 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import rootRouter from "./routes";
+import rootRouter from "./routes/index.js";
+import cookieParser from "cookie-parser";
+import logger from "./utils/logger.js";
 
 const app = express();
 
@@ -33,5 +35,5 @@ mongoose
         });
     })
     .catch((err) => {
-        logger.error(err.message);
+        logger.error(err.message)
     });
