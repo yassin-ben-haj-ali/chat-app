@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8000
 app.use(express.json()) //to parse req.body
 app.use(express.urlencoded({ extended: true })) //to parse form data(urlencoded)
 app.use(cookieParser())
-app.get("/api", rootRouter);
+app.use("/api", rootRouter);
 //error handler
 app.use((err, req, res, next) => {
     logger.error(err);
