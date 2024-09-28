@@ -27,5 +27,5 @@ export const login = async (req, res) => {
 }
 
 export const logout = (req, res) => {
-    res.cookie("jwt", "", { maxAge: 0 }).json({ message: "Logged out successfully" })
+    res.cookie("jwt", "", { maxAge: 0 }).json({ data: "Logged out successfully" })
 }
