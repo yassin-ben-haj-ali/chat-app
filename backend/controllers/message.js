@@ -9,7 +9,7 @@ export const sendMessage = async (req, res) => {
     const { message } = req.body;
 
     const newMessage = await messageServices.sendMessage({ senderId, receiverId, message });
-    res.json(newMessage)
+    res.json({newMessage})
 }
 
 
