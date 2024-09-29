@@ -3,7 +3,7 @@ import Message from "../models/message.js"
 
 const sendMessage = async ({ senderId, receiverId, message }) => {
 
-    let conversation = Conversation.findOne({
+    let conversation = await Conversation.findOne({
         participants: { $all: [senderId, receiverId] }
     })
 
@@ -18,6 +18,8 @@ const sendMessage = async ({ senderId, receiverId, message }) => {
         receiverId,
         message
     })
+
+    console.log(conversation);
 
     if (newMessage) {
         conversation.messages.push(newMessage._id)
