@@ -43,7 +43,7 @@ const getMessages = async ({senderId, userToChatId}) => {
 
     const messages = conversation.messages;
 
-    return { messages }
+    return  messages 
 
 }
 
