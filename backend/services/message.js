@@ -20,7 +20,6 @@ const sendMessage = async ({ senderId, receiverId, message }) => {
         message
     })
 
-    console.log(conversation);
 
     if (newMessage) {
         conversation.messages.push(newMessage._id)
