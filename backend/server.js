@@ -4,8 +4,9 @@ import mongoose from "mongoose";
 import rootRouter from "./routes/index.js";
 import cookieParser from "cookie-parser";
 import logger from "./utils/logger.js";
+import { app, server } from "./socket/socket.js";
 
-const app = express();
+
 
 dotenv.config();
 const PORT = process.env.PORT || 8000
@@ -30,7 +31,7 @@ mongoose
     .connect(process.env.MONGO_URI)
     .then(() => {
         logger.info('✅ Connected to DB');
-        app.listen(PORT, () => {
+        server.listen(PORT, () => {
             logger.info(`🚀 Server is running on port ${PORT}`);
         });
     })

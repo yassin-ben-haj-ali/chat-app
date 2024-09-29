@@ -1,5 +1,6 @@
 import Conversation from "../models/conversation.js"
 import Message from "../models/message.js"
+import { getReceiverSocketId, io } from "../socket/socket.js"
 
 const sendMessage = async ({ senderId, receiverId, message }) => {
 
@@ -25,15 +26,22 @@ const sendMessage = async ({ senderId, receiverId, message }) => {
         conversation.messages.push(newMessage._id)
     }
 
+    await Promise.all([conversation.save(), newMessage.save()]);
+
     //TODO: SOCKET IO FUNCTIONALITY WILL GO HERE
 
-    await Promise.all([conversation.save(), newMessage.save()]);
+    const receiverSocketId = getReceiverSocketId(receiverId);
+
+    if (receiverSocketId) {
+        io.to(receiverSocketId).emit("newMessage", newMessage);
+
+    }
 
     return newMessage;
 }
 
 
-const getMessages = async ({senderId, userToChatId}) => {
+const getMessages = async ({ senderId, userToChatId }) => {
 
     const conversation = await Conversation.findOne({
         participants: { $all: [senderId, userToChatId] }
@@ -43,7 +51,7 @@ const getMessages = async ({senderId, userToChatId}) => {
 
     const messages = conversation.messages;
 
-    return  messages 
+    return messages
 
 }
 
